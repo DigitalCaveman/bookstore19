@@ -1,6 +1,5 @@
 <div *ngIf="books && books.length" class="ui middle aligned selection divided list">
   <div>
-    <div>{{getCurrentUserAdress()}}</div>
     <a *ngFor="let book of books" class="item bs-cart-list-item" [book]="book">
     </a>
     <div *ngIf="!books" class="ui active dimmer">
@@ -19,6 +18,7 @@
 
     <div *ngIf="!authService.isLoggedIn()" class="ui red label floated right">Sie müssen sich einloggen um bestellen zu können</div>
 
+    <div>Lieferadresse: {{getCurrentUserAdress()}}</div>
     <button *ngIf="books && books.length && authService.isLoggedIn()"
             class="ui tiny blue labeled icon button right floated left aligned" (click)="orderCart()">
       <i class="shop icon"></i>Bestellung abschicken

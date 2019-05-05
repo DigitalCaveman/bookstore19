@@ -77,9 +77,8 @@ export class CartListComponent implements OnInit {
 
   getCurrentUserAdress() {
     let adress;
-    adress = localStorage.getItem('cart')[0];
-    console.log(adress);
-    return adress;
+    adress = JSON.parse(localStorage.getItem('cart'));
+    return adress[0].user.adress;
   }
 }
 
