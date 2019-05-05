@@ -31,6 +31,7 @@ export class OrderDetailComponent implements OnInit {
         dataFromObservable => this.state = dataFromObservable
     );
     //TODO: State ändern
+    //TODO: STATES
   }
 
   updateState(){

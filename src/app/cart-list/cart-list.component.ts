@@ -26,20 +26,39 @@ export class CartListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.books = JSON.parse(localStorage.getItem('cart'));
-    console.log(this.books);
+    let booksLocal;
+    booksLocal = JSON.parse(localStorage.getItem('cart'));
+    if (booksLocal){
+      booksLocal.forEach(book => {
+        book.brutto_price = parseFloat(book.brutto_price);
+      });
+    }
+    this.books = booksLocal;
   }
 
   orderCart() {
     const order:Order = OrderFactory.empty();
-    order.books = JSON.parse(localStorage.getItem('cart'));
-    let gross = 0;
+
+    let booksLocal;
+    booksLocal = JSON.parse(localStorage.getItem('cart'));
+    booksLocal.forEach(book => {
+      book.brutto_price = parseFloat(book.brutto_price);
+    });
+
+    order.books = booksLocal;
+
+    let gross : any = 0;
+    console.log(order.books);
     order.books.forEach(function (book) {
+      console.log(typeof book.brutto_price);
       gross += book.brutto_price;
     });
     order.gross = gross;
     order.net = gross/1.1;
     order.user_id = this.authService.getCurrentUserId();
+    //TODO
+
+    new State(order.id,order.gross, 'offen', '', new Date(), new Date()));
     this.bs.saveOrder(order).subscribe(() => {
       localStorage.removeItem('cart');
       this.router.navigateByUrl('/orders');
@@ -48,14 +67,10 @@ export class CartListComponent implements OnInit {
   }
 
   getPrice() {
-
-    // gesamtpreis zusammenrechnen
-    let price = 0;
-    for(let i = 0; i < this.books.length; i++) {
-      price += this.books[i].brutto_price;
-    }
-    return price.toFixed(2);
+    let price : any = 0;
+    this.books.forEach(function (book) {
+      price += book.brutto_price;
+    });
+    return price;
   }
-
-
 }

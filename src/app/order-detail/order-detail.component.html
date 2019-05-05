@@ -13,8 +13,8 @@
     <td data-label="Bestellt" >
       <span *ngFor="let book of order.books">{{book.title}}, </span>
     </td>
-    <td data-label="Gesamtpreis">{{ order.gross}}</td>
-    <td data-label="Status"> <span *ngFor="let state of state;">{{state.state}}</span></td>
+    <td data-label="Gesamtpreis">{{ order.total_price }}</td>
+    <td data-label="Status"> <span>{{state[state.length-1].state}}</span></td>
     <td data-label="Datum">{{ order.created_at }}</td>
   </tr>
   </tbody>
@@ -38,6 +38,8 @@
     <td data-label="Geändert am">
       {{ state.updated_at }}
     </td>
+
+
   </tr>
   </tbody>
 </table>
@@ -59,6 +61,7 @@
   <div class="ui input">
     <input type="text" placeholder="Comment">
   </div>
+
 
     <button   class="ui tiny green button labeled icon"
           (click)="updateState()">
