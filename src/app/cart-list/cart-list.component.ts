@@ -28,7 +28,7 @@ export class CartListComponent implements OnInit {
   ngOnInit() {
     let booksLocal;
     booksLocal = JSON.parse(localStorage.getItem('cart'));
-    if (booksLocal){
+    if (booksLocal) {
       booksLocal.forEach(book => {
         book.brutto_price = parseFloat(book.brutto_price);
       });
@@ -37,28 +37,29 @@ export class CartListComponent implements OnInit {
   }
 
   orderCart() {
-    const order:Order = OrderFactory.empty();
+    const order: Order = OrderFactory.empty();
 
+    // parse localstorage
     let booksLocal;
     booksLocal = JSON.parse(localStorage.getItem('cart'));
     booksLocal.forEach(book => {
       book.brutto_price = parseFloat(book.brutto_price);
     });
-
     order.books = booksLocal;
 
-    let gross : any = 0;
+    // calc gross
+    let gross: any = 0;
     console.log(order.books);
     order.books.forEach(function (book) {
       console.log(typeof book.brutto_price);
       gross += book.brutto_price;
     });
     order.gross = gross;
-    order.net = gross/1.1;
+    order.net = gross / 1.1;
     order.user_id = this.authService.getCurrentUserId();
-    //TODO
+    order.created_at = new Date();
 
-    new State(order.id,order.gross, 'offen', '', new Date(), new Date()));
+    // save order
     this.bs.saveOrder(order).subscribe(() => {
       localStorage.removeItem('cart');
       this.router.navigateByUrl('/orders');
@@ -67,10 +68,18 @@ export class CartListComponent implements OnInit {
   }
 
   getPrice() {
-    let price : any = 0;
+    let price: any = 0;
     this.books.forEach(function (book) {
       price += book.brutto_price;
     });
     return price;
   }
+
+  getCurrentUserAdress() {
+    let adress;
+    adress = localStorage.getItem('cart')[0];
+    console.log(adress);
+    return adress;
+  }
 }
+

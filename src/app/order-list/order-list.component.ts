@@ -13,7 +13,6 @@ export class OrderListComponent implements OnInit {
   constructor(private bs:BookStoreService, private authenticationService:AuthService) { }
 
   ngOnInit() {
-    console.log(this.orders);
     if (localStorage.is_admin === '1'){
       console.log("admin");
       this.bs.getAllOrdersAdmin().subscribe(res => {
@@ -27,7 +26,6 @@ export class OrderListComponent implements OnInit {
       let user_id:number = this.authenticationService.getCurrentUserId();
       this.bs.getAllOrders(user_id).subscribe(res => {
         this.orders = res;
-        console.log(this.orders);
       });
 
     }

@@ -1,5 +1,6 @@
 <div *ngIf="books && books.length" class="ui middle aligned selection divided list">
   <div>
+    <div>{{getCurrentUserAdress()}}</div>
     <a *ngFor="let book of books" class="item bs-cart-list-item" [book]="book">
     </a>
     <div *ngIf="!books" class="ui active dimmer">

@@ -1,3 +1,4 @@
+// @ts-ignore
 import {Component, Input, OnInit} from '@angular/core';
 import {Order} from "../shared/order";
 import {BookStoreService} from "../shared/book-store.service";
@@ -8,6 +9,7 @@ import {AuthService} from "../shared/authentication-service";
 
 @Component({
   selector: 'bs-order-details',
+  // @ts-ignore
   templateUrl: './order-detail.component.html',
   styles: []
 })
