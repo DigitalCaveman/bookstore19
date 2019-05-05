@@ -1,0 +1,67 @@
+<h2> Bestellung Nr. {{ order.id }}</h2>
+<table class="ui celled table">
+  <thead>
+  <tr><th>Bestellungs-Nummer</th>
+    <th>Bestellt</th>
+    <th>Gesamtpreis</th>
+    <th>Status</th>
+    <th>Datum</th>
+  </tr></thead>
+  <tbody>
+  <tr>
+    <td data-label="Bestellungs-Nummer">{{ order.id }}</td>
+    <td data-label="Bestellt" >
+      <span *ngFor="let book of order.books">{{book.title}}, </span>
+    </td>
+    <td data-label="Gesamtpreis">{{ order.gross}}</td>
+    <td data-label="Status"> <span *ngFor="let state of state;">{{state.state}}</span></td>
+    <td data-label="Datum">{{ order.created_at }}</td>
+  </tr>
+  </tbody>
+</table>
+
+<table class="ui celled table">
+  <thead>
+  <tr><th>Status</th>
+    <th>Kommentar</th>
+    <th>Geändert am</th>
+  </tr></thead>
+  <tbody>
+  <tr *ngFor="let state of state;">
+    <td data-label="Status">
+         {{state.state}}
+    </td>
+    <td data-label="Kommentar">
+      {{ state.state_comment }}
+    </td>
+
+    <td data-label="Geändert am">
+      {{ state.updated_at }}
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="authService.isAdmin()">
+
+  <div class="ui simple selection dropdown">
+    <input type="hidden" name="State">
+    <i class="dropdown icon"></i>
+    <div class="default text">State</div>
+    <div class="menu">
+      <div class="item" data-value="1">Offen</div>
+      <div class="item" data-value="2">Bezahlt</div>
+      <div class="item" data-value="3">Versendet</div>
+      <div class="item" data-value="4">Stoniert</div>
+    </div>
+  </div>
+
+  <div class="ui input">
+    <input type="text" placeholder="Comment">
+  </div>
+
+    <button   class="ui tiny green button labeled icon"
+          (click)="updateState()">
+    <i class="pen square icon"></i>Status bearbeiten</button>
+
+</div>

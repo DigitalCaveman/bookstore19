@@ -1,0 +1,11 @@
+<div class="content">
+  <div class="header">Bestellung von {{order.created_at}}</div>
+  <div class="description">Status: {{order.state}} </div>
+  <ul>
+    <li *ngFor="let book of order.books">
+        {{book.title}}
+    </li>
+  </ul>
+</div>
+<div class="description">Netto: {{order.net}} €</div>
+<div class="description">Gesamtpreis: {{order.gross}} €</div>
